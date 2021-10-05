@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using Orchestrator;
+using System;
+using System.IO;
 
 using YamlDotNet.Serialization;
 
@@ -39,5 +41,12 @@ namespace EmpyrionModdingFramework
           throw;
       }
     }
-  }
+
+        internal void SaveConfiguration(StreamWriter writer, Config configuration)
+        {
+            //throw new NotImplementedException();
+        }
+
+       
+    }
 }

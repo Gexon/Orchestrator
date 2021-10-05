@@ -24,7 +24,7 @@ namespace EmpyrionModdingFramework
     {
       TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
       ushort seqNr = AddTaskCompletionSource(tcs);
-      modAPI.Console_Write($"TaskCompletionSource created for {cmdID} with seqNr: {seqNr}");
+      modAPI.Console_Write($"Источник выполнения задач TaskCompletionSource создан для {cmdID} с номером seqNr: {seqNr}");
       modAPI.Game_Request(cmdID, seqNr, data);
       return await tcs.Task;
     }
@@ -51,14 +51,14 @@ namespace EmpyrionModdingFramework
     {
       if (!taskTracker.TryRemove(seqNr, out TaskCompletionSource<object> taskCompletionSource))
       {
-        modAPI.Console_Write($"No TaskCompletionSource available for seqNr: {seqNr}");
+        modAPI.Console_Write($"Источник выполнения задач TaskCompletionSource недоступен для seqNr: {seqNr}");
         return false;
       }
         
       if (eventId == CmdId.Event_Error && data is ErrorInfo eInfo)
       {
         taskCompletionSource.TrySetException(new Exception(eInfo.errorType.ToString()));
-        modAPI.Console_Write($"Request with seqNr: {seqNr} returned with Event_Error, setting exception to the TaskCompletionSource.");
+        modAPI.Console_Write($"Запрос с seqNr: {seqNr} возвращается с ошибкой события Event_Error, устанавливающей исключение для источника задач TaskCompletionSource.");
         return true;
       }
       else
@@ -66,13 +66,13 @@ namespace EmpyrionModdingFramework
         try
         {
           taskCompletionSource.TrySetResult(data);
-          modAPI.Console_Write($"Request with seqNr: {seqNr} completed, setting result to the TaskCompletionSource.");
+          modAPI.Console_Write($"Запрос с seqNr: {seqNr} завершено, установив результат в источник задач TaskCompletionSource.");
           return true;
         }
         catch (Exception error)
         {
           taskCompletionSource.TrySetException(error);
-          modAPI.Console_Write($"Unknown exception for request: {seqNr}, setting exception to the TaskCompletionSource.");
+          modAPI.Console_Write($"Неизвестное исключение для запроса: {seqNr}, установка исключения для источника задач TaskCompletionSource.");
           return false;
         }
       }

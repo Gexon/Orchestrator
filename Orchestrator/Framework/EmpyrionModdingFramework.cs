@@ -50,7 +50,7 @@ namespace EmpyrionModdingFramework
       }
       catch (Exception error)
       {
-        Log($"error trying to load the main config file.");
+        Log($"ошибка при попытке загрузить основной конфигурационный файл.");
         Log($"{error.Message}");
       }
 
@@ -60,22 +60,22 @@ namespace EmpyrionModdingFramework
       }
       catch (Exception error)
       {
-        Log($"initialization exception.");
+        Log($"исключение инициализации.");
         Log($"{error}");
       }
-      Log($"ModAPI initialization complete!");
+      Log($"Инициализация ModAPI завершена!");
       if (LegacyAPI != null)
       {
-        Log($"LegacyAPI initializacion complete!");
+        Log($"Инициализация LegacyAPI завершена!");
         return;
       }
-      Log($"LegacyAPI not found. Only Client mods supported.");
+      Log($"LegacyAPI не найдена. Поддерживается только клиентский режим.");
     }
 
     public void Shutdown()
     {
       ModAPI.Application.ChatMessageSent -= CommandManager.ProcessChatMessage;
-      Log($"shutting down");
+      Log($"выключение");
     }
 
     public void Game_Start(ModGameAPI dediAPI)
@@ -94,12 +94,12 @@ namespace EmpyrionModdingFramework
       {
         if (RequestManager.HandleRequestResponse(eventId, seqNr, data))
         {
-          Log($"RequestManager is handling Event {eventId} for the Request {seqNr}.");
+          Log($"Менеджер запросов обрабатывает событие {eventId} для запроса {seqNr}.");
         }
       }
       catch (Exception error)
       {
-        Log($"Game_Event Exception: EventId: {eventId} SeqNr: {seqNr} Data: {data?.ToString()} Error: {error}");
+        Log($"Исключение Game_Event: EventId: {eventId} SeqNr: {seqNr} Data: {data?.ToString()} Error: {error}");
       }
 
       switch (eventId)
